@@ -1,0 +1,23 @@
+<div class="col-4 text-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ exchangeName | upper }}</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">
+                {{  number_of_trades(exchangeName) }}
+                <small class="text-muted"> {{ "trades"|trans }}</small>
+            </h1>
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>&nbsp;</li>
+                <li>{{ "Last trade imported"|trans }}</li>
+                <li><strong>{{ date_of_last_trade(exchangeName).timestamp | format_datetime(pattern="YYYY-M-dd hh:mm:ss") }}</strong></li>
+                <li>&nbsp;</li>
+            </ul>
+            <a href="#" class="btn btn-lg btn-outline-primary disabled">{{ "Show trades"|trans}}</a>
+            <a href="{{ path('crypto_trades_remove_by_exchange', {'exchange': exchangeName } )}}" type="button" class="btn btn-lg btn-outline-danger">
+                {{ "Remove data"|trans}}
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="col-lg-3 col-12 mb-4 text-center">
+    <div class="card border-left-success shadow h-80">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center text-center">
+                <div class="col-12 mr-2">
+                    <div class="text-xs text-success text-uppercase mb-2">
+                        {% if titleAsLink is defined and titleAsLink is not empty %}
+                            <a href="{{ path(titleAsLink) }}">
+                                {{ title|raw }}
+                            </a>
+                        {% else %}
+                            {{ title|raw }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 mr-0">
+                    <div class="font-weight-bold text-grey-800 text-center text-uppercase {{ class|default('') }}">
+                        <span class="amount">{{ text1|default('') }}</span> <span>{{ text2|default('') }}</span>
+                        <span class="amount">{{ text3|default('') }}</span> <span>{{ text4|default('') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

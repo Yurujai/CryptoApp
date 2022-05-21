@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "Crypto Stats - Trades" }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include "block/basic.html.twig" with {'title': 'Symbol', 'titleAsLink': 'crypto_symbol_list', 'text1': symbol, 'text2': '' } %}
+            {% include "block/basic.html.twig" with {'title': 'Nº Trades', 'text1': numberOfTrades, 'text2': '' } %}
+            {% if profit is defined %}
+            {% include "block/basic.html.twig" with {'title': 'Profit on trades', 'text1': profit.value|default(0), 'text2': profit.currency} %}
+            {% else %}
+                {% include "block/basic.html.twig" with {'title': 'Test', 'text1': 'test', 'text2': 'test' } %}
+            {% endif %}
+            {% include "block/basic.html.twig" with {'title': 'Fees spent', 'text1': fees.value, 'text2': fees.currency } %}
+        </div>
+
+        <div class="card border-left-success shadow h-80">
+            <div class="table-responsive ">
+                <table class="table table-hover" style="margin-bottom:0;">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{ "Date" }}</th>
+                        <th scope="col">{{ "Symbol" }}</th>
+                        <th scope="col">{{ "Action" }}</th>
+                        <th scope="col">{{ "Amount" }}</th>
+                        <th scope="col">{{ "Price" }}</th>
+                        <th scope="col">{{ "Fee" }}</th>
+                        <th scope="col">{{ "Total" }}</th>
+                        <th scope="col">{{ "OrderID" }}</th>
+                        <th scope="col">{{ "PlatformID" }}</th>
+                        <th scope="col">{{ "Exchange" }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for element in elements %}
+                        <tr class="{% if element.action.name == 'SELL' %}table-danger{% else %}{% endif %}">
+                            <td>{{ loop.index }}</td>
+                            <td>{{ element.date.timestamp | format_datetime(pattern="YYYY-M-dd hh:mm:ss") }}</td>
+                            <td>
+                                <a target="_blank" href="{{ path('crypto_trades_list_by_symbol', {'symbol': element.order.symbol }) }}">
+                                    {{ element.order.symbol }}
+                                </a>
+                            </td>
+                            <td>{{ element.action.name }}</td>
+                            <td>{{ element.order.amount }}</td>
+                            <td>{{ element.price.value }} {{ element.price.currency }}</td>
+                            <td>{{ element.fee.value }} {{ element.fee.currency }}</td>
+                            <td>{{ element.total.value }} {{ element.total.currency }}</td>
+                            <td>{{ element.exchange.transaction }}</td>
+                            <td>{{ element.exchange.platformId }}</td>
+                            <td>{{ element.exchange.platformName }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">{{ "No trades found"|trans}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

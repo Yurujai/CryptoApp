@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "Crypto Stats - Trades" }}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+    {% for cryptoElement in cryptoList %}
+        <div class="col-lg-3 col-12 mb-4 text-center">
+            <div class="card border-left-success shadow h-80">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center text-center">
+                        <div class="col-12 mr-2">
+                            <div class="text-xs text-success text-uppercase mb-2">
+                                <a target="_blank" href="{{ path('crypto_trades_list_by_symbol', {'symbol': cryptoElement }) }}">
+                                    {{ cryptoElement }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "Crypto Stats - Trades" }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <section>
+            <div class="row">
+                <div class="col-12 mt-3 mb-1">
+                    <h5 class="text-uppercase">{{ "Global Statistics"|trans }}</h5>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+            <div class="row">
+                {% include "block/basic_card.html.twig" with {
+                    'text_color': 'text-info',
+                    'text': 'Total Trades',
+                    'value': number_of_trades(),
+                    'icon': 'fas fa-calculator fa-3x text-warning'
+                } %}
+                {% include "block/basic_card.html.twig" with {
+                    'text_color': 'text-warning',
+                    'text': 'Total Profit',
+                    'value':  total_profit().value|number_format(2) ~ ' ' ~ (total_profit().currency == 'EUR'? '€': '$'),
+                    'icon': 'fas fa-coins fa-3x'
+                } %}
+                {% include "block/basic_card.html.twig" with {
+                    'text_color': 'text-danger',
+                    'text': 'Total Fees',
+                    'value':  total_fees().value|number_format(2) ~ ' ' ~ (total_fees().currency == 'EUR'? '€': '$'),
+                    'icon': 'fas fa-coins fa-3x'
+                } %}
+                {% include "block/basic_card.html.twig" with {
+                    'text_color': 'text-info',
+                    'text': 'Last Trade Date',
+                    'value':  date_of_last_trade().toDateTime() | format_datetime(pattern="YYYY-M-dd"),
+                    'icon': 'fas fa-calendar fa-3x'
+                } %}
+            </div>
+            <div class="row">
+
+            </div>
+            <div class="row">
+
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
